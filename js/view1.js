@@ -1,6 +1,6 @@
 $(function () {
     var noImgPage=10,
-        imgPage=5,
+        imgPage=10,
         vehicle={},//运输车辆
         venueVehicle={},//场内运输
         nrmm={},//非道路机械
@@ -116,7 +116,7 @@ $(function () {
                     '<td>'+(v.materialsName||'')+'</td>\n' +
                     '<td>'+(v.netWeigh||'')+'</td>\n' +
                     '<td>'+(v.tranType==1?'公路':v.tranType==0?'铁路':v.tranType==2?'纯电动':'')+'</td>\n' +
-                    '<td>'+(v.transportUnit||'')+'</td>\n' +
+                    '<td>'+(v.owner||'')+'</td>\n' +
                     '</tr>'
             }
             $(".tranData").html(html)
