@@ -41,7 +41,7 @@
                 }
                 if (i==this.pageNumber-1){
                     this.ele.append("<button class='nextPage'>下一页</button>");
-                    this.ele.find("[value=1]").addClass("activity");
+                    this.options.currentPage?this.ele.find("[value="+this.options.currentPage+"]").addClass("activity"):this.ele.find("[value=1]").addClass("activity");
                     this.events()
                 }
             }

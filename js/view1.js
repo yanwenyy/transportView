@@ -71,7 +71,6 @@ $(function () {
     timeOffroad();
     timeTotal();
     timeOutCar();
-
     //车辆运输
     function timeCar() {
         vehicle={
@@ -80,16 +79,19 @@ $(function () {
             fuelType:$('.vehicle-fuelType').val()||'',
             emissionStand:$('.vehicle-emissionStand').val()||'',
             materialsName:$('.vehicle-materialsName').val()||'',
-            tranType:$('.vehicle-tranType').val()||''
+            tranType:$('.vehicle-tranType').val()||'',
+            carPageNum:1
         };
-        ajax_get("jinding/tran/list?pageNum=1&pageSize="+imgPage+"&timeStart="+vehicle.timeStart+"&timeEnd="+vehicle.timeEnd+"&carNum=&materialsName="+vehicle.materialsName+"&doorPostName=&poundRoom=&containerNum=&tranType="+vehicle.tranType+"&emissionStand="+vehicle.emissionStand+"&fuelType="+vehicle.fuelType, function (data) {
+        ajax_get("jinding/tran/list?pageNum="+vehicle.carPageNum+"&pageSize="+imgPage+"&timeStart="+vehicle.timeStart+"&timeEnd="+vehicle.timeEnd+"&carNum=&materialsName="+vehicle.materialsName+"&doorPostName=&poundRoom=&containerNum=&tranType="+vehicle.tranType+"&emissionStand="+vehicle.emissionStand+"&fuelType="+vehicle.fuelType, function (data) {
             $("#tranPage").paging({
                     total: data.total,
-                    numberPage: imgPage
+                    numberPage: imgPage,
+                    currentPage:vehicle.carPageNum
                 },
                 function(msg) {
+                    vehicle.carPageNum=msg;
                     //回调函数 msg为选中页码
-                    ajax_get("jinding/tran/list?pageNum="+msg+"&pageSize="+imgPage+"&enterTime=&outFactoryTime=&carNum=&materialsName=&doorPostName=&poundRoom=&containerNum&=tranType=&emissionStand=&fuelType=", function (data) {
+                    ajax_get("jinding/tran/list?pageNum="+vehicle.carPageNum+"&pageSize="+imgPage+"&timeStart="+vehicle.timeStart+"&timeEnd="+vehicle.timeEnd+"&carNum=&materialsName="+vehicle.materialsName+"&doorPostName=&poundRoom=&containerNum=&tranType="+vehicle.tranType+"&emissionStand="+vehicle.emissionStand+"&fuelType="+vehicle.fuelType, function (data) {
                         tran(data)
                     });
                 });
@@ -234,23 +236,24 @@ $(function () {
             autoRowSpan('newSummary',1,1);
             autoRowSpan('newSummary',1,0);
         }
+        //汇总合计
+        ajax_get("jinding/sum/list/count?timeStart="+summary.timeStart+"&timeEnd="+summary.timeEnd, function (data) {
+            var list=data.data,i=0,len=list.length,html='';
+            for(;i<len;i++){
+                var v=list[i];
+                html+=' <tr>\n' +
+                    '<td>'+(v.measureType&&(v.measureType==1?'采购 ':v.measureType==2?'销售 ':'采购+销售'))+'</td>\n' +
+                    '<td>'+(v.trainWeigh==0||v.trainWeigh%1==0?v.trainWeigh:v.trainWeigh.toFixed(2))+'</td>\n' +
+                    '<td>'+(v.electWeigh==0||v.electWeigh%1==0?v.electWeigh:v.electWeigh.toFixed(2))+'</td>\n' +
+                    '<td>'+(v.carWeigh==0||v.carWeigh%1==0?v.carWeigh:v.carWeigh.toFixed(2))+'</td>\n' +
+                    '<td>'+(v.sumWeigh==0||v.sumWeigh%1==0?v.sumWeigh:v.sumWeigh.toFixed(2))+'</td>\n' +
+                    '<td>'+(v.percentage%1===0?v.percentage*100+'%':(v.percentage*100).toFixed(2)+'%')+'</td>\n' +
+                    '</tr>'
+            }
+            $(".hj").html(html);
+        });
     }
-    //汇总合计
-    ajax_get("jinding/sum/list/count", function (data) {
-        var list=data.data,i=0,len=list.length,html='';
-        for(;i<len;i++){
-            var v=list[i];
-            html+=' <tr>\n' +
-                '<td>'+(v.measureType&&(v.measureType==1?'采购 ':v.measureType==2?'销售 ':'采购+销售'))+'</td>\n' +
-                '<td>'+(v.trainWeigh==0||v.trainWeigh%1==0?v.trainWeigh:v.trainWeigh.toFixed(2))+'</td>\n' +
-                '<td>'+(v.electWeigh==0||v.electWeigh%1==0?v.electWeigh:v.electWeigh.toFixed(2))+'</td>\n' +
-                '<td>'+(v.carWeigh==0||v.carWeigh%1==0?v.carWeigh:v.carWeigh.toFixed(2))+'</td>\n' +
-                '<td>'+(v.sumWeigh==0||v.sumWeigh%1==0?v.sumWeigh:v.sumWeigh.toFixed(2))+'</td>\n' +
-                '<td>'+(v.percentage%1===0?v.percentage*100+'%':(v.percentage*100).toFixed(2)+'%')+'</td>\n' +
-                '</tr>'
-        }
-        $(".hj").html(html);
-    });
+
     //外部车辆
     function timeOutCar() {
         externalVehicle={
