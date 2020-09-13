@@ -80,9 +80,10 @@ $(function () {
             emissionStand:$('.vehicle-emissionStand').val()||'',
             materialsName:$('.vehicle-materialsName').val()||'',
             tranType:$('.vehicle-tranType').val()||'',
+            materialsPname:$(".vehicle-materialsPname").val()||'',
             carPageNum:1
         };
-        ajax_get("jinding/tran/list?pageNum="+vehicle.carPageNum+"&pageSize="+imgPage+"&timeStart="+vehicle.timeStart+"&timeEnd="+vehicle.timeEnd+"&carNum=&materialsName="+vehicle.materialsName+"&doorPostName=&poundRoom=&containerNum=&tranType="+vehicle.tranType+"&emissionStand="+vehicle.emissionStand+"&fuelType="+vehicle.fuelType, function (data) {
+        ajax_get("jinding/tran/list?pageNum="+vehicle.carPageNum+"&pageSize="+imgPage+"&timeStart="+vehicle.timeStart+"&timeEnd="+vehicle.timeEnd+"&carNum=&materialsName="+vehicle.materialsName+"&doorPostName=&poundRoom=&containerNum=&tranType="+vehicle.tranType+"&emissionStand="+vehicle.emissionStand+"&fuelType="+vehicle.fuelType+"&materialsPname="+vehicle.materialsPname, function (data) {
             $("#tranPage").paging({
                     total: data.total,
                     numberPage: imgPage,
