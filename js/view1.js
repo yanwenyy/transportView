@@ -54,17 +54,21 @@ $(function () {
         current=0;zoom=1;
     });
 
-    var num="_"+randomString();
-    var ws1=new PxSocket({
-        url:http_url.Socket_url,
-        name:'getData',
-        data:'jinding'+num,
-        succ:timeCar
-    });
-    ws1.connect();
-    window.onbeforeunload = function () {
-        ws1.close();
-    };
+    // var num="_"+randomString();
+    // var ws1=new PxSocket({
+    //     url:http_url.Socket_url,
+    //     name:'getData',
+    //     data:'jinding'+num,
+    //     succ:timeCar
+    // });
+    // ws1.connect();
+    // window.onbeforeunload = function () {
+    //     ws1.close();
+    // };
+    setInterval(function () {
+        timeCar();
+        console.log("刷新了")
+    }, 600000);
 
     timeCar();
     timeFactory();
