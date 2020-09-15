@@ -266,15 +266,16 @@ $(function () {
             timeEnd:$('.externalVehicle-timeEnd').val()||'',
             fuelType:$('.externalVehicle-fuelType').val()||'',
             emissionStand:$('.externalVehicle-emissionStand').val()||'',
+            carNum:$('.externalVehicle-carNum').val()||'',
         };
-        ajax_get("jinding/outcar/list?pageNum=1&pageSize="+imgPage+"&timeStart="+externalVehicle.timeStart+"&timeEnd="+externalVehicle.timeEnd+"&fuelType="+externalVehicle.fuelType+"&emissionStand="+externalVehicle.emissionStand, function (data) {
+        ajax_get("jinding/outcartaizhang/list?pageNum=1&pageSize="+imgPage+"&carNum="+externalVehicle.carNum+"&timeStart="+externalVehicle.timeStart+"&timeEnd="+externalVehicle.timeEnd+"&fuelType="+externalVehicle.fuelType+"&emissionStand="+externalVehicle.emissionStand, function (data) {
             $("#outTranPage").paging({
                     total: data.total,
                     numberPage: imgPage
                 },
                 function(msg) {
                     //回调函数 msg为选中页码
-                    ajax_get("jinding/outcar/list?pageNum="+msg+"&pageSize="+imgPage+"&timeStart="+externalVehicle.timeStart+"&timeEnd="+externalVehicle.timeEnd+"&fuelType="+externalVehicle.fuelType+"&emissionStand="+externalVehicle.emissionStand, function (data) {
+                    ajax_get("jinding/outcartaizhang/list?pageNum="+msg+"&pageSize="+imgPage+"&carNum="+externalVehicle.carNum+"&timeStart="+externalVehicle.timeStart+"&timeEnd="+externalVehicle.timeEnd+"&fuelType="+externalVehicle.fuelType+"&emissionStand="+externalVehicle.emissionStand, function (data) {
                         outTran(data)
                     });
                 });
