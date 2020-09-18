@@ -229,10 +229,13 @@ $(function () {
                     '<td>'+(v.materialsPname||'')+'</td>\n' +
                     '<td>'+(v.materialsName||'')+'</td>\n' +
                     '<td>'+(v.trainNum)+'</td>\n' +
+                    '<td>'+(v.trains)+'</td>\n' +
                     '<td>'+(v.trainWeigh==0||v.trainWeigh%1==0?v.trainWeigh:v.trainWeigh.toFixed(2))+'</td>\n' +
                     '<td>'+(v.electNum)+'</td>\n' +
+                    '<td>'+(v.elects)+'</td>\n' +
                     '<td>'+(v.electWeigh==0||v.electWeigh%1==0?v.electWeigh:v.electWeigh.toFixed(2))+'</td>\n' +
                     '<td>'+(v.carNum)+'</td>\n' +
+                    '<td>'+(v.cars)+'</td>\n' +
                     '<td>'+(v.carWeigh==0||v.carWeigh%1==0?v.carWeigh:v.carWeigh.toFixed(2))+'</td>\n' +
                     '<td>'+(v.percentage%1===0?v.percentage*100+'%':(v.percentage*100).toFixed(2)+'%')+'</td>\n' +
                     '</tr>'
