@@ -1,10 +1,10 @@
 //接口变量
 const http_url = {
-    formal_url: "http://27.188.74.31:9080/jinding-back/",//正式
+    formal_url: "http://222.222.237.187:9080/jinding-back/",//正式
     test_url: "http://59.110.54.1:8080/jinding-back/",//测试
-    Socket_url: "ws://27.188.74.31:9080/jinding-back/imserver/",
+    Socket_url: "ws://222.222.237.187:9080/jinding-back/imserver/",
     // Socket_url:"ws://59.110.54.1:8080/jinding-back/imserver/",
-    url: "http://27.188.74.31:9080/jinding-back/"
+    url: "http://222.222.237.187:9080/jinding-back/"
 };
 function GetQueryString(name) {
     var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
